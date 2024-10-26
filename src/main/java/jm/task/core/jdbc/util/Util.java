@@ -16,21 +16,6 @@ public class Util {
             try {
                 Configuration configuration = new Configuration();
 
-                Properties settings = new Properties();
-                settings.put(AvailableSettings.DRIVER, "com.mysql.cj.jdbc.Driver");
-                settings.put(AvailableSettings.URL, "jdbc:mysql://localhost:3306/first");
-                settings.put(AvailableSettings.USER, "root");
-                settings.put(AvailableSettings.PASS, "root");
-                settings.put(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
-
-                settings.put(AvailableSettings.SHOW_SQL, "true");
-
-                settings.put(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-
-                settings.put(AvailableSettings.HBM2DDL_AUTO, "");
-
-                configuration.setProperties(settings);
-
                 configuration.addAnnotatedClass(User.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

@@ -8,28 +8,58 @@ import jm.task.core.jdbc.model.User;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    UserDao getUserDao = new UserDaoHibernateImpl();
+    private UserDao getUserDao = new UserDaoHibernateImpl();
     public void createUsersTable() {
-        getUserDao.createUsersTable();
+        try {
+            getUserDao.createUsersTable();
+        } catch (Exception e) {
+            System.err.println("Ошибка при создании таблицы: " + e.getMessage());
+        }
     }
 
     public void dropUsersTable() {
-        getUserDao.dropUsersTable();
+        try {
+            getUserDao.dropUsersTable();
+        } catch (Exception e) {
+            System.err.println("Ошибка при удалении таблицы: " + e.getMessage());
+        }
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        getUserDao.saveUser(name, lastName, age);
+        try {
+            getUserDao.saveUser(name, lastName, age);
+            System.out.println("User с именем – " + name + " добавлен в базу данных");
+        } catch (Exception e) {
+            System.err.println("Ошибка при сохранении пользователя: " + e.getMessage());
+        }
     }
 
-    public void removeUserById(long id) {
-        getUserDao.removeUserById(id);
+    public void removeUserById (long id) {
+        try {
+            getUserDao.removeUserById(id);
+        } catch (Exception e) {
+        System.err.println("Ошибка при удалении пользователя с id = " + id + ": " + e.getMessage());
+        }
     }
 
     public List<User> getAllUsers() {
+        try {
+            List<User> users = getUserDao.getAllUsers();
+            System.out.printf("%-3s\t%-10s\t%-10s\t%-3s%n", "id", "name", "lastName", "age");
+            for (User user : users) {
+                System.out.println(user);
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка при получении списка всех пользователей: " + e.getMessage());
+        }
         return getUserDao.getAllUsers();
     }
 
     public void cleanUsersTable() {
-        getUserDao.cleanUsersTable();
+        try {
+            getUserDao.cleanUsersTable();
+        } catch (Exception e) {
+            System.err.println("Ошибка при очистке таблицы: " + e.getMessage());
+        }
     }
 }

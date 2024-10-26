@@ -25,7 +25,6 @@ public class UserDaoHibernateImpl implements UserDao {
             if (transaction!= null) {
                 transaction.rollback();
             }
-            System.err.println("Ошибка при создании таблицы: " + e.getMessage());
         }
     }
 
@@ -40,7 +39,6 @@ public class UserDaoHibernateImpl implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.err.println("Ошибка при удалении таблицы: " + e.getMessage());
         }
     }
 
@@ -52,12 +50,10 @@ public class UserDaoHibernateImpl implements UserDao {
             User user = new User(name, lastName, age);
             session.save(user);
             transaction.commit();
-            System.out.printf("User с именем — %s добавлен в базу данных\n", name);
         } catch (Exception e) {
             if (transaction!= null) {
                 transaction.rollback();
             }
-            System.err.println("Ошибка при сохранении пользователя: " + e.getMessage());
         }
     }
 
@@ -84,15 +80,14 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             List<User> users = session.createCriteria(User.class).list();
             transaction.commit();
-            for (User user : users) {
-                System.out.println(user.toString());
-            }
+//            for (User user : users) {
+//                System.out.println(user.toString());
+//            }
             return users;
         } catch (Exception e) {
             if (transaction!= null) {
                 transaction.rollback();
             }
-            System.err.println("Ошибка при получении списка всех пользователей: " + e.getMessage());
             return null;
          }
     }
@@ -108,7 +103,6 @@ public class UserDaoHibernateImpl implements UserDao {
             if (transaction!= null) {
                 transaction.rollback();
             }
-            System.err.println("Ошибка при очистке таблицы: " + e.getMessage());
         }
 
     }
